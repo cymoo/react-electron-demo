@@ -1,9 +1,34 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, session } = require('electron')
+const os = require('os')
 const path = require('path')
 const isDev = require('electron-is-dev')
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS,
+} = require('electron-devtools-installer')
+const { addGlobalMenu } = require('./menu')
 
-function createWindow() {
+// NOTE: due to some reasons, chrome store cannot be connected.
+const addExtension = async () => {
+  try {
+    await installExtension(REACT_DEVELOPER_TOOLS)
+    console.log('Added extension: react dev tools')
+  } catch (err) {
+    console.error('Cannot add extension: react rev tools')
+  }
+}
+
+// https://www.electronjs.org/docs/tutorial/devtools-extension
+const addExtensionManually = async () => {
+  const devToolsPath = path.join(
+    os.homedir(),
+    '/Library/Application Support/Microsoft Edge/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.13.4_0'
+  )
+  await session.defaultSession.loadExtension(devToolsPath)
+}
+
+const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -11,14 +36,11 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      // enableRemoteModule: true,
       preload: path.join(__dirname, 'preload.js'),
     },
   })
 
-  // and load the index.html of the app.
-  // mainWindow.loadFile('index.html')
-
+  // Load the index.html of the app.
   mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
@@ -26,7 +48,6 @@ function createWindow() {
   )
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
   if (isDev) {
     mainWindow.webContents.openDevTools({ mode: 'detach' })
   }
@@ -35,8 +56,10 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   createWindow()
+  if (isDev) await addExtensionManually()
+  addGlobalMenu()
 
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
@@ -52,9 +75,10 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-ipcMain.handle('open-new-page', (event) => {
-  createWindow()
+// an ipc test
+ipcMain.handle('open-daydream', async (event) => {
+  await new BrowserWindow().loadURL('https://daydream.site')
 })
+
+// TODO: add some configs for security
+// https://www.electronjs.org/docs/tutorial/security

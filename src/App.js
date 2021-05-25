@@ -1,36 +1,25 @@
-import logo from './logo.svg'
-import './App.css'
-import os from 'os'
+import React from 'react'
+import { Route, Switch, BrowserRouter } from 'react-router-dom'
 
-const electron = window.require('electron')
-const fs = window.require('fs')
+import MainLayout from './pages/MainLayout'
+import User from './pages/User'
+import Play from './pages/Play'
+import { UserProvider } from './context/user'
 
-function App() {
-  const rv = fs.readdirSync(__dirname)
-  console.log(rv)
+import './index.css'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(event) => {
-            event.preventDefault()
-            electron.ipcRenderer.invoke('open-new-page')
-          }}
-        >
-          Learn React
-        </a>
-        <p>os: {os.hostname()}</p>
-        <p>user: {window.process.env.USER}</p>
-      </header>
-    </div>
+    <UserProvider>
+      <BrowserRouter>
+        <MainLayout>
+          <Switch>
+            <Route path="/" exact component={User} />
+            <Route path="/play" component={Play} />
+          </Switch>
+        </MainLayout>
+      </BrowserRouter>
+    </UserProvider>
   )
 }
 
