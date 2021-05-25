@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, BrowserRouter } from 'react-router-dom'
+import { Route, Switch, HashRouter } from 'react-router-dom'
 
 import MainLayout from './pages/MainLayout'
 import User from './pages/User'
@@ -11,14 +11,14 @@ import './index.css'
 const App = () => {
   return (
     <UserProvider>
-      <BrowserRouter>
+      <HashRouter>
         <MainLayout>
           <Switch>
             <Route path="/" exact component={User} />
             <Route path="/play" component={Play} />
           </Switch>
         </MainLayout>
-      </BrowserRouter>
+      </HashRouter>
     </UserProvider>
   )
 }
