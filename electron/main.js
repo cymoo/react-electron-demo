@@ -2,22 +2,23 @@
 const { app, BrowserWindow, ipcMain, session } = require('electron')
 const os = require('os')
 const path = require('path')
-const isDev = require('electron-is-dev')
-const {
-  default: installExtension,
-  REACT_DEVELOPER_TOOLS,
-} = require('electron-devtools-installer')
+// const isDev = require('electron-is-dev')
 const { addGlobalMenu } = require('./menu')
 
-// NOTE: due to some reasons, chrome store cannot be connected.
-const addExtension = async () => {
-  try {
-    await installExtension(REACT_DEVELOPER_TOOLS)
-    console.log('Added extension: react dev tools')
-  } catch (err) {
-    console.error('Cannot add extension: react rev tools')
-  }
-}
+// // NOTE: due to some reasons, chrome store cannot be connected.
+// const {
+//   default: installExtension,
+//   REACT_DEVELOPER_TOOLS,
+// } = require('electron-devtools-installer')
+//
+// const addExtension = async () => {
+//   try {
+//     await installExtension(REACT_DEVELOPER_TOOLS)
+//     console.log('Added extension: react dev tools')
+//   } catch (err) {
+//     console.error('Cannot add extension: react rev tools')
+//   }
+// }
 
 // https://www.electronjs.org/docs/tutorial/devtools-extension
 const addExtensionManually = async () => {
@@ -43,15 +44,16 @@ const createWindow = () => {
 
   // Load the index.html of the app.
   mainWindow.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../build/index.html')}`
+    // isDev
+    //   ? 'http://localhost:3000'
+    //   : `file://${path.join(__dirname, '../build/index.html')}`
+    `file://${path.join(__dirname, '../build/index.html')}`
   )
 
   // Open the DevTools.
-  if (isDev) {
-    mainWindow.webContents.openDevTools({ mode: 'detach' })
-  }
+  // if (isDev) {
+  //   mainWindow.webContents.openDevTools({ mode: 'detach' })
+  // }
 }
 
 // This method will be called when Electron has finished
