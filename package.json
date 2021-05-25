@@ -15,6 +15,7 @@
     "web-vitals": "^1.1.2"
   },
   "main": "electron/main.js",
+  "homepage": "./",
   "scripts": {
     "start": "craco start",
     "build": "craco build",

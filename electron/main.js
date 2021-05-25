@@ -36,6 +36,7 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
+      // It's better to use preload
       preload: path.join(__dirname, 'preload.js'),
     },
   })
@@ -58,7 +59,7 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(async () => {
   createWindow()
-  if (isDev) await addExtensionManually()
+  // if (isDev) await addExtensionManually()
   addGlobalMenu()
 
   app.on('activate', function () {
