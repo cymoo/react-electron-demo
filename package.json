@@ -15,15 +15,16 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
-  "main": "electron/main.js",
-  "homepage": "./",
+  "main": "src/main/index.js",
+  "homepage": ".",
   "scripts": {
-    "start": "electron-forge start",
+    "serve": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject",
-    "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
-    "electron": "wait-on tcp:3000 && electron .",
+    "dev": "cross-env BROWSER=none npm run serve & npm run electron",
+    "electron": "wait-on tcp:3000 && cross-env NODE_ENV=development electron .",
+    "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
@@ -51,7 +52,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.57",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.57",
     "@electron-forge/maker-zip": "^6.0.0-beta.57",
-    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "electron": "^12.0.9",
     "prettier": "^2.3.0",
     "wait-on": "^5.3.0"

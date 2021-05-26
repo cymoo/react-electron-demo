@@ -1,4 +1,4 @@
-const { Menu, MenuItem, shell, app } = require('electron')
+const { Menu, shell, app } = require('electron')
 
 const addGlobalMenu = () => {
   const template = [
