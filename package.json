@@ -1,11 +1,11 @@
 {
   "name": "react-electron-demo",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-  },
-  "main": "src/main/index.js",
+  "author": "Cymoo",
+  "repository": "https://github.com/cymoo/react-electron-demo",
+  "license": "MIT",
   "homepage": ".",
+  "main": "src/main/index.js",
   "scripts": {
     "serve": "craco start",
     "build": "craco build",
@@ -34,6 +34,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.57",
