@@ -3,17 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.2",
-    "@emotion/css": "^11.1.3",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "electron-squirrel-startup": "^1.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.2"
   },
   "main": "src/main/index.js",
   "homepage": ".",
@@ -24,9 +13,9 @@
     "eject": "craco eject",
     "dev": "cross-env BROWSER=none npm run serve & npm run electron",
     "electron": "wait-on tcp:3000 && cross-env NODE_ENV=development electron .",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "npm run build && electron-forge start",
+    "package": "npm run build && electron-forge package",
+    "make": "npm run build && electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -55,7 +44,18 @@
     "cross-env": "^7.0.3",
     "electron": "^12.0.9",
     "prettier": "^2.3.0",
-    "wait-on": "^5.3.0"
+    "wait-on": "^5.3.0",
+    "@craco/craco": "^6.1.2",
+    "@emotion/css": "^11.1.3",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
   },
   "config": {
     "forge": {
